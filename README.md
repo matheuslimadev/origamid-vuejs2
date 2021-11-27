@@ -1,2 +1,2 @@
 # origamid-vuejs2
-Lessons about VueJS2 (Framework JS)
+Lessons about VueJS2 (Framework JS) | Origamid.com
