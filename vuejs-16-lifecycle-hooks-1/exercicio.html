@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>LifeCycle Hooks - exercicio</title>
+</head>
+<!-- Utilize a api do github para
+mostrar todos os seus dados na tela.
+Faça o fetch das informações utilizando
+um dos hooks do vue:
+
+https://api.github.com/users/matheuslimafx (utilize o seu usuário)
+ -->
+
+<!-- 
+  Crie um contador, onde seja possível clicar em
+  um botão e adicionar +1 ao número.
+
+  Toda vez que o contador mudar, mude o título da página
+  para o total do contador. Utilize um hook para isso
+ -->
+<body>
+  <div id="app">
+    <button @click="contador++">Click me {{contador}}</button>
+    <ul>
+      <li v-for="value, key in github">{{key}}: {{value}}</li>
+    </ul>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        github: {},
+        contador: 0
+      },
+      methods: {
+        getGitHub() {
+          fetch("https://api.github.com/users/matheuslimafx")
+          .then(r => r.json())
+          .then(r => {
+            this.github = r
+          })
+        }
+      },
+      created() {
+        this.getGitHub()
+        console.log(this.github)
+      },
+      updated() {
+        document.title = this.contador
+      }
+    })
+  </script>
+  <style>
+    
+  </style>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>computed and watch</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{preco}}</h1>
+    <p>{{total}}</p>
+
+    <!-- Carros azuis: -->
+    <ul>
+      <li v-for="value in carrosAzuis">{{value.marca}}</li>
+    </ul>
+    <button @click="removerCarro">Remover Carro</button>
+    
+    <br>
+    <p>{{contador}}</p>
+    <button @click="contador++">Add Contador</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+       preco: 59,
+       desconto: 10,
+       contador: 0,
+       carros: [
+         {
+           marca: "Chevrolet",
+           cor: "Azul"
+         },
+         {
+           marca: "Volkswage",
+           cor: "Preto"
+         },
+         {
+           marca: "Honda",
+           cor: "Azul"
+         },
+       ]
+      },
+      computed: {
+        total(){
+          return "R$" + (this.preco - this.desconto) + ",00" 
+        },
+        carrosAzuis() {
+          return this.carros.filter(({ cor }) => cor === "Azul")
+          
+        }
+      },
+      methods: {
+        removerCarro() {
+          this.carros.pop();
+        }
+      },
+      watch: {
+        contador(valorNovo, valorAntigo) {
+          //this.removerCarro() Posso usar uma função da instância
+          console.log(valorNovo + " - " + valorAntigo)
+        },
+        carros(valorNovo, valorAntigo) {
+          console.log(valorNovo)
+          console.log(valorAntigo)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

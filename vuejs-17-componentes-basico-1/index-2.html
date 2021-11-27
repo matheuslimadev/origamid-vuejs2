@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>Componentes Básico 1</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <componente-global></componente-global> -->
+    <componente-local></componente-local>
+    <componente-local2></componente-local2>
+    <!-- <componente-local3></componente-local3> -->
+  </div>
+    
+
+
+  <script>
+    // Componente Global:
+    Vue.component("ComponenteGlobal", {
+      template: `<p>Sou um componente Global</p>`
+    })
+
+    const ComponenteLocal = {
+      name: "ComponenteLocal",
+      template: `
+      <div>
+        <p>Sou um componente Local</p>
+        <componente-local3></componente-local3>
+      </div>`
+        }
+    const ComponenteLocal2 = {
+      name: "ComponenteLocal222",
+      template: `
+      <div>
+        <p>Sou o (2º) segundo componente local</p>
+        <componente-global></componente-global>
+      </div>
+      `
+    }     
+
+    const ComponenteLocal3 = {
+      name: "ComponenteLocal3",
+      data() {
+        return {
+          contador: 210
+        }
+      },
+      template: `
+      <div>
+      <p>Parágrafo 1 (componente 3)</p>
+      <p>Valor do contador (passado pela computed prop): {{novoContador}}</p>
+      </div>
+      `,
+      computed: {
+        novoContador() {
+          return this.contador * 10
+        }
+      }
+    }  
+
+    Vue.component("ComponenteLocal3", ComponenteLocal3)
+
+    // Instância View:
+    const vm = new Vue({
+      el: "#app",
+      components: {
+        ComponenteLocal,
+        ComponenteLocal2
+      }
+    })
+  </script>
+  <style> 
+  </style>
+</body>
+</html>

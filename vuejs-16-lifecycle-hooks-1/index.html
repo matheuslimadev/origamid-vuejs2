@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>LifeCycle Hooks 1</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{mensagem}}</p>
+    <div>
+      {{github}}
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        mensagem: 'Esta é uma mensagem',
+        github: {}
+      },
+      methods: {
+        puxarGit() {
+          fetch("https://api.github.com/users/origamid")
+          .then(r => r.json())
+          .then(r => {
+            this.github = r
+          })
+        }
+      },
+      beforeCreate() {
+        //aqui ele ainda enxerga as variaveis do data como undefined
+        console.log('beforeCreate() :  ', this.mensagem)
+        // this.puxarGit()
+      },
+      created() {
+        //aqui ele já reconhece as variaveis do data
+        console.log('created() :  ', this.mensagem)
+        console.log('elemento - DOM: ', this.$el)
+        this.puxarGit()
+      },
+      beforeMount() {
+        console.log('beforeMount():  ', this.mensagem)
+        console.log('elemento - DOM: ', this.$el)
+      },
+      mounted() {
+        console.log('mounted(): ', this.mensagem)
+        console.log('elemento - DOM: ', this.$el)
+      }
+    })
+  </script>
+  <style>
+    
+  </style>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>Exercício v-for</title>
+</head>
+<body>
+  <!--
+  Utilizando a api:
+  https://viacep.com.br/ws/04538133/json/
+  Mostre o cep, logradouro, complemento, bairro, localidade e uf do que for retornado.
+
+  
+  Use o arquivo json da aula, para listar os cursos e as matérias.
+-->
+
+  <div id="app">
+    <button @click="consultar">Ver Dados</button>
+    <hr>
+    <p>{{data.cep}}</p>
+    <p>{{data.logradouro}}</p>
+    <p>{{data.complemento}}</p>
+    <p>{{data.bairro}}</p>
+    <p>{{data.localidade}}</p>
+    <p>{{data.uf}}</p>
+    <ul>
+      <li v-for="value, key in data">{{key}}: {{value}}</li>
+    </ul>
+  </div>
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        data: ""
+      },
+      methods: {
+        consultar() {
+          fetch("https://viacep.com.br/ws/04538133/json/")
+          .then(r => r.json())
+          .then(json => {
+            this.data = json
+            console.log(json)
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>

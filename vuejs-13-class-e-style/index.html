@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>Class e Style 1</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1 :class="cor">Meu texto</h1>
+    <h3 :class="{ativo: estaAtivo, verde: elementoVerde}">Está Ativo</h3>
+    <button @click="estaAtivo = !estaAtivo">Mudar</button>
+    <h2 :class="[textoCinza, fundoAmarelo]">Texto com Classes via Array</h2>
+    <h3 :class="[textoCinza, fundoAmarelo, {ativo: estaAtivo}]">Texto com Classes via Array + Condição</h3>
+    <a :style="{fontSize: tamanho + 'px', color: corLink}">Link com Style via Vuejs</a>
+    <br>
+    <button v-on:click="tamanho++">Aumentar Link</button>
+    <button @click="tamanho--">Diminuir Link</button>
+    <br><hr>
+    <button :style="estiloBotao">Botão com :style</button>
+    <br>
+    <p :style="mudarTamanho">
+      O tamanho do meu texto é dinâmico
+    </p>
+    <hr>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        cor: "verde",
+        estaAtivo: true,
+        elementoVerde: true,
+        textoCinza: "text_gray",
+        fundoAmarelo: "bg_yellow",
+        tamanho: 30,
+        corLink: '#f90',
+        estiloBotao: {
+          fontSize: "30px",
+          background: "Tomato",
+          textDecoration: "underline"
+        }
+      },
+      computed: {
+        mudarTamanho() {
+          let tamanho = Math.random() * 100
+          return {
+            fontSize: tamanho + 'px'
+          }
+        }
+      }
+    })
+  </script>
+  <style>
+    .text_gray{
+      color: slategray;
+    }
+    .bg_yellow{
+      background-color: yellow;
+    }
+    .azul{
+      color: blue;
+    }
+    .verde{
+      color: green;
+    }
+    .ativo{
+      color: purple;
+    }
+  </style>
+</body>
+</html>

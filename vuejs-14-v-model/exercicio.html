@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>v-model 1</title>
+</head>
+<!-- 
+  1 - Crie um criador de botões.
+
+  O usuário poderá definir:
+  width,
+  height,
+  font-size,
+  font-family,
+  text-align,
+  background,
+  color,
+  border-radius,
+
+  As escolhas serão feitas em campos de
+  formulário. Cada escolha deverá ser 
+  refletida em um elemento (o botão).
+
+
+  2 - Crie um formulário com, nome, email, telefone e mensagem.
+  Ao clicar em enviar, as informações preenchidas no formulário
+  devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+ -->
+<body>
+  <div id="app">
+    <p>
+      Font-Family: 
+      <select v-model="b_fontFamily">
+        <option disabled selected value="">Selecione a Fonte</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Monospace">Monospace</option>
+      </select>
+    </p>
+    <p>
+      Text-Align:
+      <select v-model="b_textAlign">
+        <option disabled selected value="">Selecione um alinhamento</option>
+        <option value="left">Left</option>
+        <option value="center">Center</option>
+        <option value="right">Right</option>
+      </select>
+    </p>
+    <p><label for="width">Width: </label><input id="width" type="number" v-model.number="b_width"></p>
+    <p>Height: <input type="number" v-model.number="b_height"></p>
+    <p>Font-Size: <input type="number" v-model.number="b_fontSize"></p>
+    <p>Border-Radius: <input type="number" v-model.number="b_borderRadius"></p>
+    <p>Background: <input type="color" v-model="b_background"></p>
+    <p>Color: <input type="color" v-model="b_color"></p>
+    <br><hr><br>
+    <button :style="{width: b_width + 'px', height: b_height + 'px', fontSize: b_fontSize + 'px', fontFamily: b_fontFamily, textAlign: b_textAlign, background: b_background, color: b_color, borderRadius: b_borderRadius + 'px'}">Botão</button>
+    
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        b_width: 100,
+        b_height: 100,
+        b_fontSize: 20,
+        b_fontFamily: "Times New Roman",
+        b_textAlign: 'center',
+        b_background: '#cccccc',
+        b_color: '#ffffff',
+        b_borderRadius: 5
+      }
+    })
+  </script>
+  <style>
+    label{
+      display: block;
+    }
+    a{
+      display: block;
+    }
+    button{
+      display: block;
+    }
+  </style>
+</body>
+</html>

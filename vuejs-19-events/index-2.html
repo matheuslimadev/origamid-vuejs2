@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>Events</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>Contador Pai: {{contadorr}}</p>
+    <!-- <meu-botao :contador="contadorr" @update:contador="contadorr = $event"></meu-botao> -->
+    <meu-botao :contador.sync="contadorr"></meu-botao>
+  </div>
+
+  <script type="module">
+    
+    const MeuBotao = {
+      name: "MeuBotao",
+      props: ["contador"],
+      data() {
+        return {
+          contadorComponent: this.contador
+        }
+      },
+      template: `<button @click="incrementar">Contador Filho {{contadorComponent}}</button>`,
+      methods: {
+        incrementar() {
+          this.contadorComponent++
+          this.$emit("update:contador", this.contadorComponent)
+        }
+      }
+    }
+    
+    const vm = new Vue ({
+      el: "#app",
+      data: {
+        contadorr: 0
+      },
+      components: {
+        MeuBotao
+      },
+      methods: {
+        // incrementarContadorPai(valor) {
+        //   console.log('valor vindo do filho: ', valor)
+        //   this.contador = valor
+        // }
+      }
+    })
+
+  </script>
+  <style> 
+  </style>
+</body>
+</html>

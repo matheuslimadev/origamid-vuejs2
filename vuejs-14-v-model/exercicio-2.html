@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>v-model 1</title>
+</head>
+<!-- 
+  1 - Crie um criador de botões.
+
+  O usuário poderá definir:
+  width,
+  height,
+  font-size,
+  font-family,
+  text-align,
+  background,
+  color,
+  border-radius,
+
+  As escolhas serão feitas em campos de
+  formulário. Cada escolha deverá ser 
+  refletida em um elemento (o botão).
+
+
+  2 - Crie um formulário com, nome, email, telefone e mensagem.
+  Ao clicar em enviar, as informações preenchidas no formulário
+  devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+ -->
+<body>
+  <div id="app">
+    <form>
+      <label for="name">Nome: </label><input id="name" type="text" v-model.trim="nome"><br>
+      <label for="email">Email: </label><input id="email" type="email" v-model.trim="email"><br>
+      <label for="tel">Telefone: </label><input id="tel" type="numer" v-model.number="telefone"><br>
+      <label for="msg">Mensagem: </label><textarea id="msg" v-model="mensagem"></textarea><br>
+      <button type="submit" @click.prevent="enviar">Submit</button>
+
+      <div :class="enviou ? 'show' : 'hidden'">
+        <p>
+          <b>{{nome}}</b> enviou uma mensagem do email <b>{{email}}</b>, contendo a seguinte mensagem:
+        </p>
+        <p>
+          {{mensagem}}
+        </p>
+        <p><i>Tel: {{telefone}}</i></p>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        nome: "",
+        email: "",
+        telefone: "",
+        mensagem: "",
+        enviou: false
+      },
+      methods: {
+        enviar(){
+          this.enviou = true
+        }
+      }
+    })
+  </script>
+  <style>  
+  .show{
+    display: block
+  }
+  .hidden{
+    display: none;
+  }
+  </style>
+</body>
+</html>

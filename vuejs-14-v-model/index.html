@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>v-model</title>
+</head>
+
+<body>
+  <div id="app">
+     <!-- <input type="text" v-model="nome">
+     <textarea v-model="corpoTexto"></textarea>
+     <h3>{{nome}}</h3>
+     <p>{{corpoTexto}}</p> -->
+     <input type="text" v-model.trim="nome"><br>
+     <input type="text" v-model.lazy="sobrenome"><br>
+     <input type="email" v-bind:value="email"><br>
+     <input type="text" v-model.number="soNumero"><br>
+     <input type="checkbox" id="receberEmail" v-model="emailNews"><label for="receberEmail">Receber e-mail</label>
+     <p>Nome: {{nome}} {{sobrenome}}</p>
+     <p>Numero: {{soNumero}}</p>
+     <p>Email: {{email}}</p>
+     <p>{{emailNews ? 'Aceitou receber e-mails - ' : 'Não quer receber e-maisl - '}}{{emailNews}}</p><br><hr>
+
+     <label for="b_azul">Azul: </label><input type="radio" name="b_azul" id="b_azul" v-model="radioCor" value="azul">&nbsp;&nbsp;&nbsp;&nbsp;
+     <label for="b_vermelho">Vermelho: </label><input type="radio" name="b_vermelho" id="b_vermelho" v-model="radioCor" value="vermelho">&nbsp;&nbsp;&nbsp;&nbsp;
+     <label for="b_amarelo">Amarelo: </label><input type="radio" name="b_amarelo" id="b_amarelo" v-model="radioCor" value="amarelo">&nbsp;&nbsp;&nbsp;&nbsp;
+     <p>Cor: <b>{{radioCor}}</b></p><br><hr>
+      
+    <div>
+      <select v-model="fruta">
+        <option disabled value="">Selecione a fruta</option>
+        <option value="pêra">Pêra</option>
+        <option value="uva">Uva</option>
+        <option value="maçã">Maçã</option>
+      </select>
+      <br>
+      <p>Fruta: {{fruta}}</p>
+    </div>
+
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        // nome: "",
+        // corpoTexto: "",
+        nome: "",
+        sobrenome: "",
+        soNumero: "",
+        email: "teste@gmail.com",
+        emailNews: false,
+        radioCor: "",
+        fruta: ""
+      }
+    })
+  </script>
+  <style>
+    
+  </style>
+</body>
+</html>

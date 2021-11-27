@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>Props | Exercício</title>
+</head>
+
+<body>
+<!-- 
+  Crie um componente com um campo de input e um botão para enviar o valor.
+  Nesse campo de input será possível escrever o simbolo de empresas americanas
+
+  simbolos ex:
+  aapl -> Apple
+  goog -> Google
+  msft -> Microsoft
+  amzn -> Amazon
+  fb -> Facebook
+
+  Ao clicar no botão, faça um fetch com a API:
+  https://cloud.iexapis.com/stable/stock/${SIMBOLO}/quote?token=sk_2e37a940b0c9459b8b2fa2ac055e04fb
+
+  O resultado do fetch deverá ser mostrado em um componente filho do formulário.
+  Envia as informações utilizando prop
+ 
+  Mostre todas as informações do fetch utilizando um loop.
+ -->
+
+  <div id="app">
+    <inserir-dados></inserir-dados>
+  </div>
+
+  <script type="module">
+
+    const DadosAcao = {
+      name: "DadosAcao",
+      props: ["detalheAcao"],
+      template: `
+        <div>
+          <p>*** Dados ***</p>
+          <ul>
+            <li v-for="value, key in detalheAcao">{{key}}: {{value}}</li>
+          </ul>
+        </div>
+      `
+    }
+
+    const InserirDados = {
+      name: "InserirDados",
+      data () {
+        return {
+          simboloAcao: null,
+          resultAcao: null
+        }
+      },
+      components: {
+        DadosAcao
+      },
+      methods: {
+        buscarAcao(valor) {
+          let acao = valor
+          fetch(`https://cloud.iexapis.com/stable/stock/${acao}/quote?token=sk_2e37a940b0c9459b8b2fa2ac055e04fb`)
+          .then(r => r.json())
+          .then(r => {
+            this.resultAcao = r
+          })
+        }
+      },
+      template: `
+        <div>
+          <label for="acao">Digite a ação:</label>
+          <input id="acao" type="text" v-model="simboloAcao">
+          <br><span>Ex:(aapl, goog, msft, amzn, fb)</span>
+          <br><button @click.prevent="buscarAcao(simboloAcao)">Buscar</button>
+          <br>
+          <dados-acao :detalheAcao="resultAcao"></dados-acao>
+        </div>
+      `
+    }
+
+    const vm = new Vue({
+      el: "#app",
+      components: {
+        InserirDados
+      }
+    })
+  </script>
+  <style>
+  </style>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./../vue.js"></script>
+  <title>Componentes Básico 1</title>
+</head>
+
+<body>
+  <div id="app">
+    {{mensagem}}
+    <br>
+    <botao-contador></botao-contador>
+  </div>
+
+  <script>
+    // Componente Global:
+    Vue.component("BotaoContador", {
+      data() {
+        return {
+          total: 0
+        }
+      },
+      template: `<a @click="total++">Contar: {{total}}</a>`,
+      methods: {
+        mostrarConsole() {
+          console.log("sou um componente")
+        }
+      }
+    })
+
+
+    // Instância View:
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        mensagem: 'teste: '
+      }
+    })
+  </script>
+  <style> 
+  </style>
+</body>
+</html>
